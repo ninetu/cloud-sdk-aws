@@ -1,4 +1,4 @@
-FROM python:buster
+FROM python:slim-buster
 MAINTAINER Thanarat Ruangrat <ninetu@gmail.com>
 
 RUN \
