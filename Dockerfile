@@ -1,13 +1,16 @@
-FROM python:slim-buster
-MAINTAINER Thanarat Ruangrat <ninetu@gmail.com>
+FROM alpine:3.6
 
-RUN \
-  apt-get update && \
-  apt-get install -yqq nodejs yarn wget git && \
-  echo "deb https://deb.nodesource.com/node_12.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
-  wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
-  wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-  pip install -U pip && pip install pipenv awscli awsebcli && \
-  npm i -g npm@^6 && \
-  rm -rf /var/lib/apt/lists/*
+RUN apk -v --update add \
+        python \
+        py-pip \
+        groff \
+        less \
+        mailcap \
+        && \
+    pip install --upgrade awscli awsebcli s3cmd python-magic && \
+    apk -v --purge del py-pip && \
+    rm /var/cache/apk/*
+VOLUME /root/.aws
+VOLUME /project
+WORKDIR /project
+ENTRYPOINT ["aws"]
