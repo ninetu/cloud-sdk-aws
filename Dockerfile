@@ -1,7 +1,6 @@
 FROM python:slim-buster
 
-RUN pip install --upgrade awscli awsebcli s3cmd python-magic && \
-    rm /var/cache/apk/*
+RUN pip install --upgrade awscli awsebcli s3cmd
 VOLUME /root/.aws
 VOLUME /project
 WORKDIR /project
