@@ -1,14 +1,6 @@
-FROM alpine:3.6
+FROM python:slim-buster
 
-RUN apk -v --update add \
-        python \
-        py-pip \
-        groff \
-        less \
-        mailcap \
-        && \
-    pip install --upgrade awscli awsebcli s3cmd python-magic && \
-    apk -v --purge del py-pip && \
+RUN pip install --upgrade awscli awsebcli s3cmd python-magic && \
     rm /var/cache/apk/*
 VOLUME /root/.aws
 VOLUME /project
